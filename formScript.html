@@ -1,0 +1,87 @@
+<!-- Bootstrap Scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+crossorigin="anonymous"></script>
+
+<script>
+// When the page loads.
+//$('#alert').hide();
+
+var horAxis = 'Horizontal Axis';
+var vertAxis = 'Vertical Axis';
+var horFrom = 'Horizontal: From..';
+var horTo = 'Horizontal: To..'; 
+var vertFrom = 'Vertical: From..';
+var vertTo = 'Vertical: To..'; 
+
+$(function() {
+
+// bind functions to submit buttons
+$('#start.btn').bind('click', start);
+$('#cancel.btn').bind('click', cancel);
+
+// set ddefault values for dropdowns
+$('#horizontal-selected').text(horAxis);
+$('#vertical-selected').text(vertAxis);
+$('#horizontal-translated-from').text(horFrom);
+$('#horizontal-translated-to').text(horTo);
+$('#vertical-translated-from').text(vertFrom);
+$('#vertical-translated-to').text(vertTo);
+
+});
+
+
+$('#horizontal-selector > button').click(function(e){
+  $('#horizontal-selected').text(this.innerHTML);
+});
+
+$('#vertical-selector > button').click(function(e){
+  $('#vertical-selected').text(this.innerHTML);
+});
+
+$('#horizontal-translator-from > button').click(function(e){
+  $('#horizontal-translated-from').text(this.innerHTML);
+});
+
+$('#vertical-translator-from > button').click(function(e){
+  $('#vertical-translated-from').text(this.innerHTML);
+});
+
+$('#horizontal-translator-to > button').click(function(e){
+  $('#horizontal-translated-to').text(this.innerHTML);
+});
+
+$('#vertical-translator-to > button').click(function(e){
+  $('#vertical-translated-to').text(this.innerHTML);
+});
+
+function start(){
+  var horSel = $('#horizontal-selected').text();
+  var vertSel = $('#vertical-selected').text();
+
+  var horTrFrom = $('#horizontal-translated-from').text();
+  var horTrTo = $('#horizontal-translated-to').text();
+
+  var vertTrFrom = $('#vertical-translated-from').text();
+  var vertTrTo = $('#vertical-translated-to').text();
+  
+  horSel = horSel == horAxis ? null : horSel;
+  vertSel = vertSel == vertAxis ? null : vertSel;
+  horTrFrom = horTrFrom == horFrom ? null : horTrFrom;
+  horTrTo = horTrTo == horTo ? null : horTrTo;
+  vertTrFrom = vertTrFrom == vertFrom ? null : vertTrFrom;
+  vertTrTo = vertTrTo == vertTo ? null : vertTrTo;
+
+  google.script.run.buidChartData(horSel, vertSel, horTrFrom, horTrTo, vertTrFrom, vertTrTo);
+//  .withFailureHandler(function showErr (  $('#alert').removeClass('collapse'); $('#alert').addClass('show');))
+//  .withSuccessHandler(cancel());
+} 
+
+function cancel(){
+  google.script.host.close();
+}
+
+</script>
